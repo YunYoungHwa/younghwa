@@ -1,0 +1,35 @@
+result = []
+
+temp_arr = []
+
+
+def solution(arr, temp_arr):
+    global result
+    # 함수 처음 실행 시
+    if (len(temp_arr) == 0):
+        # 중복된 원소 제거
+        temp = list(set(arr))
+        # 중복 제거한 배열로 베이스(원소 하나짜리) 생성
+        for i in temp:
+            k = sorted(temp.copy())
+            k.remove(i)
+            solution(k, [i])
+
+    # 모든 조합 생성 완료
+    elif (len(arr) == 0):
+        # 중복된 부분집합이 없으면 추가
+        if (not sorted(temp_arr) in result):
+            result.append(sorted(temp_arr))
+
+    else:
+        # 중복된 부분집합이 없으면 추가
+        if (not sorted(temp_arr) in result):
+            result.append(sorted(temp_arr))
+            for i in sorted(list(set(arr))):
+                temp = arr.copy()
+                temp.remove(i)
+                solution(temp, temp_arr + [i])
+
+
+solution([1,2,3,4],[]) # 코드 구현 확인
+print(result)
